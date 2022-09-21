@@ -3,8 +3,8 @@ package com.yeokhengmeng.docstopdfconverter;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.poi.xwpf.converter.pdf.PdfConverter;
-import org.apache.poi.xwpf.converter.pdf.PdfOptions;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class DocxToPDFConverter extends Converter {
@@ -19,13 +19,12 @@ public class DocxToPDFConverter extends Converter {
 		loading();
 
 		XWPFDocument document = new XWPFDocument(inStream);
-		PdfOptions options = PdfOptions.create();
+		PdfOptions options = PdfOptions.getDefault();
 
 		processing();
 		PdfConverter.getInstance().convert(document, outStream, options);
 
 		finished();
-
 	}
 
 }
