@@ -1,12 +1,10 @@
 package com.yeokhengmeng.docstopdfconverter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
-
 public abstract class Converter {
-
 
 	private final String LOADING_FORMAT = "\nLoading stream\n\n";
 	private final String PROCESSING_FORMAT = "Load completed in %1$dms, now converting...\n\n";
@@ -21,7 +19,8 @@ public abstract class Converter {
 	protected boolean showOutputMessages = false;
 	protected boolean closeStreamsWhenComplete = true;
 
-	public Converter(InputStream inStream, OutputStream outStream, boolean showMessages, boolean closeStreamsWhenComplete){
+	public Converter(InputStream inStream, OutputStream outStream, boolean showMessages,
+			boolean closeStreamsWhenComplete) {
 		this.inStream = inStream;
 		this.outStream = outStream;
 		this.showOutputMessages = showMessages;
@@ -30,17 +29,17 @@ public abstract class Converter {
 
 	public abstract void convert() throws Exception;
 
-	private void startTime(){
+	private void startTime() {
 		startTime = System.currentTimeMillis();
 		startOfProcessTime = startTime;
 	}
 
-	protected void loading(){
+	protected void loading() {
 		sendToOutputOrNot(String.format(LOADING_FORMAT));
 		startTime();
 	}
 
-	protected void processing(){
+	protected void processing() {
 		long currentTime = System.currentTimeMillis();
 		long prevProcessTook = currentTime - startOfProcessTime;
 
@@ -50,42 +49,33 @@ public abstract class Converter {
 
 	}
 
-	protected void finished(){
+	protected void finished() {
 		long currentTime = System.currentTimeMillis();
 		long timeTaken = currentTime - startTime;
 		long prevProcessTook = currentTime - startOfProcessTime;
 
 		startOfProcessTime = System.currentTimeMillis();
 
-		if(closeStreamsWhenComplete){
+		if (closeStreamsWhenComplete) {
 			try {
 				inStream.close();
 				outStream.close();
 			} catch (IOException e) {
-				//Nothing done
+				// Nothing done
 			}
 		}
 
 		sendToOutputOrNot(String.format(SAVING_FORMAT, prevProcessTook, timeTaken));
 	}
 
-
-	private void sendToOutputOrNot(String toBePrinted){
-		if(showOutputMessages){
+	private void sendToOutputOrNot(String toBePrinted) {
+		if (showOutputMessages) {
 			actuallySendToOutput(toBePrinted);
 		}
 	}
-	
-	
-	protected void actuallySendToOutput(String toBePrinted){
+
+	protected void actuallySendToOutput(String toBePrinted) {
 		System.out.println(toBePrinted);
 	}
-
-
-
-
-
-
-
 
 }
