@@ -10,7 +10,15 @@
             "request": "launch",
             "mainClass": "com.yeokhengmeng.docstopdfconverter.MainClass",
             "projectName": "docs-to-pdf-converter",
-            "args": "-i ./tmp/demo.docx -v"
+            "args": "-i ./tmp/demo_docx.docx -v"
+        },
+        {
+            "type": "java",
+            "name": "Debug with Doc",
+            "request": "launch",
+            "mainClass": "com.yeokhengmeng.docstopdfconverter.MainClass",
+            "projectName": "docs-to-pdf-converter",
+            "args": "-i ./tmp/demo_doc.doc -v"
         }
     ]
 }

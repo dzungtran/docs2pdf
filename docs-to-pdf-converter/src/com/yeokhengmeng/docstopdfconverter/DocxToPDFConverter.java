@@ -3,9 +3,8 @@ package com.yeokhengmeng.docstopdfconverter;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
-import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.docx4j.Docx4J;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 public class DocxToPDFConverter extends Converter {
 
@@ -17,14 +16,13 @@ public class DocxToPDFConverter extends Converter {
 	@Override
 	public void convert() throws Exception {
 		loading();
-
-		XWPFDocument document = new XWPFDocument(inStream);
-		PdfOptions options = PdfOptions.getDefault();
-
+		
+		WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(inStream);
+		
 		processing();
-		PdfConverter.getInstance().convert(document, outStream, options);
-
+		
+		Docx4J.toPDF(wordMLPackage, outStream);
+		
 		finished();
 	}
-
 }
